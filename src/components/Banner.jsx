@@ -6,10 +6,30 @@ import img3 from "../assets/home/03.png";
 import img4 from "../assets/home/04.jpg";
 import img5 from "../assets/home/05.png";
 import img6 from "../assets/home/06.png";
+import { useEffect, useState } from "react";
 
 const Banner = () => {
+  const [isVisible, setIsVisible] = useState(true);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const offset = window.scrollY;
+      if (offset > 50) {
+        setIsVisible(true);
+      } else {
+        setIsVisible(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    // Cleanup
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
   return (
-    <div>
+    <div className="w-100% max-w-[1700px] mx-auto relative">
       <Carousel
         interval={4000}
         autoPlay
